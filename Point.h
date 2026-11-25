@@ -1,48 +1,49 @@
 #pragma once
-#include <cmath>  // mengimport library cmath untuk fungsi matematika seperti hypot (jarak Euclidean aman overflow)
-#include <string> // mengimport library string agar titik dapat menyimpan nama (seperti A, B, C, dst)
+#include <cmath>  // untuk fungsi matematika, di sini dipakai hypot (menghitung jarak Euclidean dengan aman dari overflow)
+#include <string> // agar setiap titik dapat menyimpan nama/kode (misalnya A, B, C, dst)
 
 using namespace std;
 
+// Class Point merepresentasikan sebuah titik pada bidang 2D yang memiliki nama dan koordinat (x, y)
 class Point {
 private:
-    string name; // deklarasi variable name bertipe string untuk menyimpan nama titik/kota (A, B, C, dst)
-    double x;    // deklarasi variable x bertipe data double untuk koordinat sumbu X
-    double y;    // deklarasi variable y bertipe data double untuk koordinat sumbu Y
+    string name; // nama atau kode titik sebagai pengenal (misalnya A, B, C)
+    double x;    // koordinat pada sumbu X
+    double y;    // koordinat pada sumbu Y
 
 public:
-    // Constructor default (jika titik dibuat tanpa parameter)
+    // Constructor default: dipakai saat titik dibuat tanpa parameter
     Point() {
-        name = ""; // menginisialisasi nama titik kosong secara default
-        x = 0.0;   // menginisialisasi nilai awal x menjadi 0.0 secara default
-        y = 0.0;   // menginisialisasi nilai awal y menjadi 0.0 secara default
+        name = ""; // nama kosong
+        x = 0.0;   // koordinat X awal 0
+        y = 0.0;   // koordinat Y awal 0
     }
 
-    // Constructor berparameter (untuk mengisi nama titik serta nilai x dan y saat dipanggil)
+    // Constructor berparameter: langsung mengisi nama dan koordinat saat titik dibuat
     Point(string pname, double px, double py) {
-        name = pname; // memasukkan nilai parameter pname ke variable name
-        x = px;       // memasukkan nilai parameter px ke variable x
-        y = py;       // memasukkan nilai parameter py ke variable y
+        name = pname; // simpan nama titik
+        x = px;       // simpan koordinat X
+        y = py;       // simpan koordinat Y
     }
 
-    // Fungsi untuk mengambil nama titik
+    // Mengambil nama titik
     string getName() const {
-        return name; // mengembalikan nilai variable name
+        return name;
     }
 
-    // Fungsi untuk mengambil nilai X
+    // Mengambil koordinat X
     double getX() const {
-        return x; // mengembalikan nilai variable x
+        return x;
     }
 
-    // Fungsi untuk mengambil nilai Y
+    // Mengambil koordinat Y
     double getY() const {
-        return y; // mengembalikan nilai variable y
+        return y;
     }
 }; // akhir class Point
 
-// Fungsi global 'dist' untuk menghitung jarak antara dua titik (Euclidean Distance)
+// Menghitung jarak Euclidean (garis lurus) antara dua titik
 inline double dist(const Point& p1, const Point& p2) {
-    // menggunakan std::hypot agar tidak terjadi overflow saat selisih koordinat sangat besar
+    // hypot menghitung sqrt(dx^2 + dy^2) tanpa risiko overflow saat selisih koordinat sangat besar
     return hypot(p1.getX() - p2.getX(), p1.getY() - p2.getY());
 }
